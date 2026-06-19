@@ -1,0 +1,32 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Удаление книги{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-danger shadow-sm text-center">
+            <div class="card-header bg-danger text-white py-3">
+                <h4 class="card-title mb-0">Предупреждение об удалении</h4>
+            </div>
+            <div class="card-body p-4">
+                <p class="fs-5">Вы действительно хотите безвозвратно удалить эту книгу из базы данных?</p>
+                
+                <div class="alert alert-secondary text-start mb-4">
+                    <h5 class="alert-heading text-dark">«{{ book.title }}»</h5>
+                    <p class="mb-0 text-muted">Автор: {{ book.author }}</p>
+                    <small class="text-muted">ISBN: {{ book.isbn }}</small>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{% url 'book_list' %}" class="btn btn-light border px-4">Нет, отменить</a>
+                        <button type="submit" class="btn btn-danger px-4">Да, удалить навсегда</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

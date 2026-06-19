@@ -1,0 +1,51 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Запись{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card shadow-sm p-2">
+            <div class="card-header bg-white border-bottom py-3">
+                <h4 class="card-title mb-0 fw-semibold text-dark">Добавление в каталог</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="id_title" class="form-label small fw-semibold text-uppercase text-secondary">Название книги</label>
+                        <input type="text" name="title" id="id_title" class="form-control form-control-lg fs-6 {% if form.title.errors %}is-invalid{% endif %}" value="{{ form.title.value|default:'' }}" required>
+                        {% for error in form.title.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_author" class="form-label small fw-semibold text-uppercase text-secondary">Автор</label>
+                        <input type="text" name="author" id="id_author" class="form-control form-control-lg fs-6 {% if form.author.errors %}is-invalid{% endif %}" value="{{ form.author.value|default:'' }}" required>
+                        {% for error in form.author.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="id_publication_year" class="form-label small fw-semibold text-uppercase text-secondary">Год издания</label>
+                            <input type="number" name="publication_year" id="id_publication_year" class="form-control form-control-lg fs-6 {% if form.publication_year.errors %}is-invalid{% endif %}" value="{{ form.publication_year.value|default:'' }}" required>
+                            {% for error in form.publication_year.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label for="id_isbn" class="form-label small fw-semibold text-uppercase text-secondary">ISBN</label>
+                            <input type="text" name="isbn" id="id_isbn" class="form-control form-control-lg fs-6 {% if form.isbn.errors %}is-invalid{% endif %}" value="{{ form.isbn.value|default:'' }}" required>
+                            {% for error in form.isbn.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                        <a href="{% url 'book_list' %}" class="btn btn-light border px-4">Отмена</a>
+                        <button type="submit" class="btn btn-primary px-4 border-0" style="background-color: #c59859;">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
